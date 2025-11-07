@@ -1,13 +1,13 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Taidalos Docs",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#1780b2",
+    "light": "#52bae4",
+    "dark": "#174863"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon.ico",
   "navigation": {
     "tabs": [
       {
@@ -16,33 +16,8 @@
           {
             "group": "Getting started",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "tech/media-search-api-getting-started",
+              "tech/webhook-getting-started"
             ]
           }
         ]
@@ -57,12 +32,43 @@
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Subjects",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/endpoint/subjects/get-subject",
+              "api-reference/endpoint/subjects/create-subject",
+              "api-reference/endpoint/subjects/delete-subject"              
+            ]
+          },
+          {
+            "group": "Media Searches",
+            "pages": [
+              "api-reference/endpoint/media-searches/find-media-search",
+              "api-reference/endpoint/media-searches/get-media-search",
+              "api-reference/endpoint/media-searches/get-media-search-pdf",
+              "api-reference/endpoint/media-searches/get-media-search-aggregate",
+              "api-reference/endpoint/media-searches/get-media-search-execution",
+
+              "api-reference/endpoint/media-searches/create-media-search",
+              "api-reference/endpoint/media-searches/execute-media-search",
+
+              "api-reference/endpoint/media-searches/override-summary",
+              "api-reference/endpoint/media-searches/override-article-disposition",
+
+              "api-reference/endpoint/media-searches/delete-media-search"
+            ]
+          },
+          {
+            "group": "Media Searches Configuration",
+            "pages": [
+              "api-reference/endpoint/media-searches-configuration/get-configuration",
+              "api-reference/endpoint/media-searches-configuration/create-configuration",
+              "api-reference/endpoint/media-searches-configuration/get-configuration-by-media-search-id"
+            ]
+          },
+          {
+            "group": "Sanction, PeP, and Watchlist",
+            "pages": [
+              "api-reference/endpoint/sanctions-peps-watchlists/get-aggregate"
             ]
           }
         ]
@@ -71,33 +77,28 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
           "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
+          "href": "https://taidalos.com/blog",
           "icon": "newspaper"
         }
       ]
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/taidalos-logo-light.png",
+    "dark": "/logo/taidalos-logo-light.png"
   },
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "label": "Website",
+        "href": "https://taidalos.com"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://app.taidalos.com"
     }
   },
   "contextual": {
@@ -114,9 +115,7 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "linkedin": "https://www.linkedin.com/company/taidalos/"
     }
   }
 }

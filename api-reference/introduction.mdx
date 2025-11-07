@@ -1,28 +1,25 @@
 ---
 title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+description: ''
 ---
 
 ## Welcome
+It's super easy to get started with the API. Create an account on [app.taidalos.com](https://app.taidalos.com) and
+get your API key. There is no credit card required, and you get 1,000 credits for free to get started.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
-
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+Go to [https://app.taidalos.com/integrations](https://app.taidalos.com/integrations) to create the API key after sign-up.
 
 ## Authentication
+Add the API key to the `Authorization` header.
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+```curl
+  --header 'Authorization: <api key>'
+```
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+### Example
+
+```curl
+curl --request GET \
+  --url https://api.taidalos.com/v1/media-searches/{media_search_id} \
+  --header 'Authorization: <authorization>'
 ```

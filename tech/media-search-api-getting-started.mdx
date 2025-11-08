@@ -4,120 +4,466 @@ description: 'This guide provides a step-by-step tutorial on solving the adverse
 icon: 'code'
 ---
 
-We need to process a lot of data before we can provide you with the full adverse media assessment. This can take a few
-moments. We also don't like to keep you or your client waiting. That's why we have designed our system to work
-asynchronously.
+APIs are tools that help software systems communicate with each other, allowing you to solve problems and automate
+tasks. This guide will walk you through using an API to streamline adverse media screening — checking for negative media
+coverage about individuals or organizations.
 
-One way to receive the search results is by polling the API every x seconds
+## Goal
 
-- https://api.taidalos.com/v1/media-searches/execution/{media_search_id}
-- https://api.taidalos.com/v1/media-searches/aggregate/{media_search_execution_id}
+By the end of this guide, you’ll know how to set up and run media screenings via API and connect the results to your CRM
+system.
 
-> Warning: This works for prototyping and trying out the API. However, calling those endpoints in production can lead to
-> rate limiting issues. That's why we recommend using webhooks.
+## 1. Explore the API documentation (optional)
 
-We use Svix to handle the webhooks for you and us. Their focus is solely on webhook security and how to make them easy
-to
-use and effective
-24/7 (like we do with adverse media).
+After you sign up, you can explore the API documentation (in the lower left-hand corner of the sidebar). You can also
+download the Open API Specifications and use them however you like. You can import them into Postman or a similar
+solution to make API calls from the convenience of a User Interface.
 
-# What are webhooks?
+Download Postman or insomnia here:
+[https://www.postman.com/downloads/](https://www.postman.com/downloads/)
+https://insomnia.rest/download
 
-Webhooks are API calls to your server to inform you that a certain event has happened. The payload of an event contains
-information to take next steps (e.g., fetch data and save to a database, send an email, etc.).
+## 2. Let’s understand the objects
 
-# Step-by-step
+### `subject`
 
-## 1. Set up a POST endpoint to receive webhooks
+A `subject` is the subject you want to investigate (e.g., do media research). This can be an individual or a legal
+entity. One subject can have multiple `media-searches`.
 
-On your server, set up a POST endpoint to receive webhook events. An example endpoint for your application could look
-like: `https://api.yourdomain.com/webhooks/taidalos`.
+### `media-search-configuration`
 
-Make sure that there is no authentication middleware before hitting the handler. Step 3 discusses how to secure your
-webhook.
+A `media-search-configuration` holds configuration data for `media-searches`. You can create one
+`media-search-configuration` object and reference this object for multiple `media-search`objects.
 
-## 2. Set up your webhook endpoint in Taidalos
+### `media-search`
 
-[Sign in](https://accounts.taidalos.com/sign-in) to or [create an account](https://accounts.taidalos.com/sign-up) if you
-have not already (no credit card required).
+A `media-search` is the parent container for all `media-search-execution` objects for a given `subject`. To create a
+`media-search`, you need a `subject` and a `media-search-configuration` reference.
 
-Next, go to `Integrations` and create a new webhook referencing the endpoint you have created in step 1 and subscribe to
-the events you are interested in.
+### `media-search-execution`
 
-![taidalos-webhook-how-to-1.png](taidalos-webhook-how-to-1.webp)
+You can create `media-searche` objects without executing them. One `media-search` object can have 0, 1, or multiple
+`media-search-execution` objects. This is handy for creating `media-search`es in bulk without immediate execution or
+having multiple `media-search-execution`s over time (monitoring).
 
-![taidalos-webhook-how-to-2.jpg](taidalos-webhook-how-to-2.webp)
+## Steps By Step Guide to your first media search results
 
-## 3. Process and verify incoming events
+### 1. Sign Up
 
-First, get the secret from the webhook settings.
+Sign up at https://taidlaos.com (it’s free, no credit card required, enough free credits to play around with the
+application and API)
 
-![taidalos-webhook-how-to-3.png](taidalos-webhook-how-to-3.webp)
+### 2. Create an API Key
 
-Then you can verify the payload using the secret.
+After you have signed up, go to “Integrations” and create a new API key by adding a meaningful description and click
+“Generate API Credentials”. Copy the key to a safe place. You will not be able to see the secret again. However, you can
+create a new secret anytime and delete the old one.
 
-You can find more details for this and other events in the Event Catalog#
-![taidalos-webhook-how-to-4.png](taidalos-webhook-how-to-4.webp)
+Add the API key to the `header` for each request like so:
+`Authorization: Basic...`
+In Postman, you can go to the top level of the collection (Taidalos API Documentation), and go to “Authorization”.
+Select “API Key” as the Auth Type. Add “Authorization” as the key and the API Key you have created as the value. Set
+“Add to” to “Header” and click “Save”.
 
-How you parse and process the data depends on your server language.
+### 3. Create a subject
 
-This is an example of how to verify the request using Python and FastAPI.
+You can create a `subject` with as much or as little information as you want or that is available to you. The only
+property that is required is the `name`.
 
-Other examples including JavaScript, Rust, Go, Java, Kotlin, Ruby, C#, PHP, cURL can be found
-here: https://docs.svix.com/receiving/verifying-payloads/how
+All information:
 
-```python
-from fastapi import Request, Response, status
+- **Name (required)**
+- Internal ID
+- Aliases
+- Type (“INDIVIDUAL”, “LEGAL\_ENTITY”)
+- Date of Birth (for individuals)
+- Date of Incorporation (for Legal Entities)
+- Places
+- Industries
+- Nationalities
 
-from svix.webhooks import Webhook, WebhookVerificationError
+A very simple request could look something like:
 
-secret = "whsec_MfKQ9r8GKYqrTwjUPD8ILPZIo2LaLaSw"
-
-@router.post("/webhook/", status_code=status.HTTP_204_NO_CONTENT)
-async def webhook_handler(request: Request, response: Response):
-    headers = request.headers
-    payload = await request.body()
-
-    try:
-        wh = Webhook(secret)
-        msg = wh.verify(payload, headers)
-    except WebhookVerificationError as e:
-        response.status_code = status.HTTP_400_BAD_REQUEST
-        return
-
-    # Do something with the message...
+```bash
+curl --location 'https://api.taidalos.com/v1/subjects/create-subject' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--header 'Authorization: ••••••' \
+--data '{
+  "data": {
+    "name": "Jan Marsalek"
+  }
+}'
 ```
 
-## 4. Process the event
+Or more complex ones like:
 
-This is the event payload for the `media_search_execution.completed` event
-
-````json
-{
-  "created_at": 1257894000000,
+```bash
+curl --location 'https://api.taidalos.com/v1/subjects/create-subject' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--header 'Authorization: ••••••' \
+--data '{
   "data": {
-    "created_at": 1257893000000,
-    "media_search_execution_id": "49f04997-d90b-4e32-8763-ac93ea1eb956",
-    "media_search_id": "s8021a271-1110-4b03-b316-76ae48b09226",
-    "subject_id": "ca6b1a40-3dc6-44f0-963f-8d19771b3f47"
-  },
-  "id": "3faa193c-a203-4ed0-95b9-85e771d4eb39",
-  "object": "event",
-  "organisation_id": "8c7e6269-faa1-4388-8245-0930f19d4b5c",
-  "type": "media_search_execution.completed"
+    "name": "Meta",
+    "type": "LEGAL_ENTITY",
+    "aliases": [
+      "Facebook",
+      "Instagram"
+    ],
+    "places": [
+      {
+        "description": "Head Quarter",
+        "place": "1 Hacker Way, Menlo Park, CA 94025, US"
+      },
+      {
+        "description": "Office in Hamburg",
+        "place": "Curienstraße 2, 20095 Hamburg"
+      }
+    ],
+    "date_of_incorporation": "2004-01-04",
+    "industries": [
+      "Software",
+      "Communication"
+    ],
+    "internal_id": "crm_id#123456789"
+  }
+}'
+```
+
+To start quickly, use the simple one and add more information, such as the internal_id (which can be your system's CRM
+ID), to the payload.
+
+### 4. Create a Search Configuration
+
+> **Update May 2025** Use `keyword_lists` instead of `keywords` to configure your keywords. That way you can cover
+> multiple languages. The property `keywords` is still supported for backward compatability.
+
+You only need to create one `media-search-configuration` that can be reused across multiple `media-search` objects. To
+start
+quickly, use the template below and save the `media_search_configuration_id` from the response.
+
+The below example uses two keyword lists to cover English and German media. Create a template in the UI to explore more
+languages and tailor the keywords to meet your risk appetite.
+
+```bash
+curl --location 'https://api.taidalos.com/v1/media-searches/configuration/create-configuration' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--header 'Authorization: ••••••' \
+--data '{
+    "data": {
+        "keyword_lists": [
+            {
+                "name": "English Keywords",
+                "keywords": [
+                    "Arms Dealing",
+                    "Arrested",
+                    "Blackmail",
+                    "Bribe",
+                    "Child Labour",
+                    "Convicted",
+                    "Corrupt",
+                    "Counterfeiting",
+                    "Data Breach",
+                    "Drug Trafficking",
+                    "Embezzlement",
+                    "Espionage",
+                    "Exploitation",
+                    "Extortion",
+                    "Felony",
+                    "Fined",
+                    "Forced Labor",
+                    "Fraud",
+                    "Human Rights",
+                    "Human Trafficking",
+                    "Indicted",
+                    "Market Manipulation",
+                    "Misappropriation",
+                    "Money Laundering",
+                    "Organised Crime",
+                    "Piracy",
+                    "Pollution",
+                    "Ponzi",
+                    "Price Fixing",
+                    "Privacy Violation",
+                    "Racism",
+                    "Racketeering",
+                    "Sanction",
+                    "Scam",
+                    "Sentenced",
+                    "Shell Company",
+                    "Slavery",
+                    "Smuggling",
+                    "Steal",
+                    "Tax Evasion",
+                    "Terrorist",
+                    "Theft",
+                    "Wildlife Trafficking"
+                ]
+            },
+            {
+                "name": "German Keywords",
+                "keywords": [
+                    "Angeklagt",
+                    "Ausbeutung",
+                    "Bestechung",
+                    "Betrug",
+                    "Briefkastenfirma",
+                    "Datenschutzverletzung",
+                    "Diebstahl",
+                    "Drogenhandel",
+                    "Erpressung",
+                    "Fälschung",
+                    "Geldstrafe",
+                    "Geldwäsche",
+                    "Kinderarbeit",
+                    "Korrupt",
+                    "Marktmanipulation",
+                    "Menschenhandel",
+                    "Menschenrechte",
+                    "Organisierte Kriminalität",
+                    "Piraterie",
+                    "Ponzi",
+                    "Preisabsprache",
+                    "Rassismus",
+                    "Sanktion",
+                    "Schmuggel",
+                    "Schwerverbrechen",
+                    "Sklaverei",
+                    "Spionage",
+                    "Stehlen",
+                    "Steuerhinterziehung",
+                    "Terrorist",
+                    "Umweltverschmutzung",
+                    "Unterschlagung",
+                    "Verhaftet",
+                    "Verletzung der Privatsphäre",
+                    "Veruntreuung",
+                    "Verurteilt",
+                    "Waffenhandel",
+                    "Wildtierhandel",
+                    "Zwangsarbeit"
+                ]
+            }
+        ],
+        "language": "en",
+        "risk_categories": [
+            "Arms & Drugs & Human Trafficking",
+            "Civil/Administrative Actions",
+            "Corruption",
+            "Criminal Proceedings",
+            "Data & Privacy Violations",
+            "Discrimination",
+            "Environmental Crimes",
+            "Extortion & Blackmail",
+            "Fraud & Theft",
+            "Human Rights Violations",
+            "Money Laundering",
+            "Organized Crime",
+            "Other Financial Crimes",
+            "Racketeering",
+            "Sanctions",
+            "Tax Crimes",
+            "Terrorism"
+        ]
+    }
+}'
+```
+
+### 4.1. Monitoring (Optional)
+
+> **Update** New feature since March 2025
+
+Since March 2025, you can adjust the `media-search-configuration` to run searches periodically, ensuring you never miss
+new media. You
+can choose from daily, weekly, monthly, quarterly, or yearly monitoring. Simply add the monitoring object
+
+```txt
+"monitoring": {
+    "interval": "WEEKLY",
+    "is_active": true
 }
-````
+```
 
-You can now be sure that the media_search_execution has been completed. This means that
-calling
+to the `media-search-configuration` request like this:
 
-- GET https://api.taidalos.com/v1/media-searches/aggregate/{media_search_execution_id}
-  - will return the results for the media search execution
+```bash
+curl --location 'https://api.taidalos.com/v1/media-searches/configuration/create-configuration' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--header 'Authorization: ••••••' \
+--data '{
+    "data": {
+        "keyword_lists": [
+            {
+                "name": "English Keywords",
+                "keywords": [
+                    "Arms Dealing",
+                    "Arrested",
+                    "Blackmail",
+                    "Bribe",
+                    "Child Labour",
+                    "Convicted",
+                    "Corrupt",
+                    "Counterfeiting",
+                    "Data Breach",
+                    "Drug Trafficking",
+                    "Embezzlement",
+                    "Espionage",
+                    "Exploitation",
+                    "Extortion",
+                    "Felony",
+                    "Fined",
+                    "Forced Labor",
+                    "Fraud",
+                    "Human Rights",
+                    "Human Trafficking",
+                    "Indicted",
+                    "Market Manipulation",
+                    "Misappropriation",
+                    "Money Laundering",
+                    "Organised Crime",
+                    "Piracy",
+                    "Pollution",
+                    "Ponzi",
+                    "Price Fixing",
+                    "Privacy Violation",
+                    "Racism",
+                    "Racketeering",
+                    "Sanction",
+                    "Scam",
+                    "Sentenced",
+                    "Shell Company",
+                    "Slavery",
+                    "Smuggling",
+                    "Steal",
+                    "Tax Evasion",
+                    "Terrorist",
+                    "Theft",
+                    "Wildlife Trafficking"
+                ]
+            },
+            {
+                "name": "German Keywords",
+                "keywords": [
+                    "Angeklagt",
+                    "Ausbeutung",
+                    "Bestechung",
+                    "Betrug",
+                    "Briefkastenfirma",
+                    "Datenschutzverletzung",
+                    "Diebstahl",
+                    "Drogenhandel",
+                    "Erpressung",
+                    "Fälschung",
+                    "Geldstrafe",
+                    "Geldwäsche",
+                    "Kinderarbeit",
+                    "Korrupt",
+                    "Marktmanipulation",
+                    "Menschenhandel",
+                    "Menschenrechte",
+                    "Organisierte Kriminalität",
+                    "Piraterie",
+                    "Ponzi",
+                    "Preisabsprache",
+                    "Rassismus",
+                    "Sanktion",
+                    "Schmuggel",
+                    "Schwerverbrechen",
+                    "Sklaverei",
+                    "Spionage",
+                    "Stehlen",
+                    "Steuerhinterziehung",
+                    "Terrorist",
+                    "Umweltverschmutzung",
+                    "Unterschlagung",
+                    "Verhaftet",
+                    "Verletzung der Privatsphäre",
+                    "Veruntreuung",
+                    "Verurteilt",
+                    "Waffenhandel",
+                    "Wildtierhandel",
+                    "Zwangsarbeit"
+                ]
+            }
+        ],
+        "language": "en",
+        "risk_categories": [
+            "Arms & Drugs & Human Trafficking",
+            "Civil/Administrative Actions",
+            "Corruption",
+            "Criminal Proceedings",
+            "Data & Privacy Violations",
+            "Discrimination",
+            "Environmental Crimes",
+            "Extortion & Blackmail",
+            "Fraud & Theft",
+            "Human Rights Violations",
+            "Money Laundering",
+            "Organized Crime",
+            "Other Financial Crimes",
+            "Racketeering",
+            "Sanctions",
+            "Tax Crimes",
+            "Terrorism"
+        ],
+        "monitoring": {
+            "interval": "WEEKLY",
+            "is_active": true
+        }
+    }
+}'
+```
 
-- GET https://api.taidalos.com/v1/media-searches/execution/{media_search_id}
-  - will return the results for the entire media
-search (including the execution).
+The property `is_active` needs to be set to `true`. The property `interval` can have the following values:
 
-You can then process the results and save them to your database.
+- `DAILY`
+- `WEEKLY`
+- `MONTHLY`
+- `QUARTERLY`
+- `YEARLY`
 
-Any questions or feedback? Please reach out to me at [julius.moeller@taidalos.com](mailto:julius.moeller@taidalos.com).
+### 5. Create a media search with immediate execution
+
+```bash
+curl --location 'https://api.taidalos.com/v1/media-searches/create-search' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--header 'Authorization: ••••••' \
+--data '{
+  "data": {
+    "execute_immediately": true,
+    "media_search_configuration_id": "<id from step 4>",
+    "subject_id": "id from step 3"
+  }
+}'
+```
+
+Make sure that `execute_immediately` is set to `true`.
+
+**DONE!**
+
+You can now go to the User Interface to see the media search (it might be in progress and not done yet). You can also
+send requests to
+
+```bash
+curl --location 'https://api.taidalos.com/v1/media-searches/aggregate/<media_search_id from step 5>' \
+--header 'Accept: application/json' \
+--header 'Authorization: ••••••'
+```
+
+The summary and justification will be returned as Markdown. However, if you want, you can remove the Markdown tags
+and use plain text by setting the `remove_markdown` query parameter to `true`.
+This will remove all Markdown syntax except ordered and unordered list syntax, e.g., `-`, `1.`, `2.`, etc.
+
+To get the results via the API. You can also set up webhooks to listen to the completion of `media-search-exection`s.
+
+Let us know if you have any questions or if anything is unclear. We are happy to help!
+Contact us: cs@taidalos.com
+
+## Next Steps
+
+Use webhooks to listen to the completion of`media-search-execution`
+s: [How to get started with the webhook?](https://taidalos.com/blog/webhook-get-started/) to handel load on scale.

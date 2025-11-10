@@ -456,21 +456,16 @@ paths:
             application/pdf:
               schema:
                 $ref: "#/components/schemas/main.problemJson"
-  "/v1/sanctions-peps-watchlists/aggregate/{sanctions_peps_watchlists_id}":
+  "/v1/sanctions-peps-watchlists/aggregate/{sanction_pep_watchlist_id}":
     get:
       tags:
         - Sanctions PEPs Watchlists
       summary: Get Sanctions, PEPs, and Watchlists Aggregate
       parameters:
-        - description: sanctions_peps_watchlists_id
-          name: sanctions_peps_watchlists_id
+        - description: sanction_pep_watchlist_id
+          name: sanction_pep_watchlist_id
           in: path
           required: true
-          schema:
-            type: string
-        - description: "Remove Markdown (options: true, false, default: false)"
-          name: remove_markdown
-          in: query
           schema:
             type: string
         - description: <Authorization Token>
@@ -508,7 +503,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationRequest"
+              $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationRequ\
+                est"
         description: request body
         required: true
       responses:
@@ -517,7 +513,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationResponse"
+                $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationResp\
+                  onse"
         "400":
           description: Bad Request
           content:
@@ -550,6 +547,37 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/main.createSanctionsPepAndWatchlistSearchResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  "/v1/sanctions-peps-watchlists/{sanction_pep_watchlist_id}":
+    delete:
+      tags:
+        - Sanctions PEPs Watchlists
+      summary: Delete Sanctions, PEPs, and Watchlists Aggregate
+      parameters:
+        - description: sanction_pep_watchlist_id
+          name: sanction_pep_watchlist_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.getSanctionsPepsWatchlistsAggregateResponse"
         "400":
           description: Bad Request
           content:
@@ -907,7 +935,8 @@ components:
       type: object
       properties:
         data:
-          $ref: "#/components/schemas/main.createSanctionsPepAndWatchlistSearchRequestItem"
+          $ref: "#/components/schemas/main.createSanctionsPepAndWatchlistSearchRequestIte\
+            m"
     main.createSanctionsPepAndWatchlistSearchRequestItem:
       type: object
       properties:
@@ -919,7 +948,8 @@ components:
       type: object
       properties:
         data:
-          $ref: "#/components/schemas/main.createSanctionsPepAndWatchlistSearchResponseItem"
+          $ref: "#/components/schemas/main.createSanctionsPepAndWatchlistSearchResponseIt\
+            em"
     main.createSanctionsPepAndWatchlistSearchResponseItem:
       type: object
       properties:
@@ -931,14 +961,16 @@ components:
       type: object
       properties:
         data:
-          $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationRequestItem"
+          $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationRequ\
+            estItem"
     main.createSanctionsPepsWatchlistsConfigurationRequestItem:
       type: object
     main.createSanctionsPepsWatchlistsConfigurationResponse:
       type: object
       properties:
         data:
-          $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationResponseItem"
+          $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationResp\
+            onseItem"
     main.createSanctionsPepsWatchlistsConfigurationResponseItem:
       type: object
       properties:

@@ -68,9 +68,9 @@
           {
             "group": "Sanction, PeP, and Watchlist",
             "pages": [
-              "api-reference/endpoint/sanctions-peps-watchlists/get-aggregate",
-              "api-reference/endpoint/sanctions-peps-watchlists/create-configuration",
-              "api-reference/endpoint/sanctions-peps-watchlists/create-search"
+              "api-reference/endpoint/sanctions-peps-watchlists-checks/get-aggregate",
+              "api-reference/endpoint/sanctions-peps-watchlists-checks/create-configuration",
+              "api-reference/endpoint/sanctions-peps-watchlists-checks/new-check"
             ]
           }
         ]

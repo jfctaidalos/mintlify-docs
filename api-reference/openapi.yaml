@@ -456,14 +456,14 @@ paths:
             application/pdf:
               schema:
                 $ref: "#/components/schemas/main.problemJson"
-  "/v1/sanctions-peps-watchlists/aggregate/{sanction_pep_watchlist_id}":
+  "/v1/sanctions-peps-watchlists-checks/aggregate/{sanctions_peps_watchlists_check_id}":
     get:
       tags:
         - Sanctions PEPs Watchlists
       summary: Get Sanctions, PEPs, and Watchlists Aggregate
       parameters:
-        - description: sanction_pep_watchlist_id
-          name: sanction_pep_watchlist_id
+        - description: sanctions_peps_watchlists_check_id
+          name: sanctions_peps_watchlists_check_id
           in: path
           required: true
           schema:
@@ -487,7 +487,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/main.problemJson"
-  /v1/sanctions-peps-watchlists/configuration/create-configuration:
+  /v1/sanctions-peps-watchlists-checks/configuration/create-configuration:
     post:
       tags:
         - Sanctions PEPs Watchlists
@@ -521,7 +521,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/main.problemJson"
-  /v1/sanctions-peps-watchlists/create-search:
+  /v1/sanctions-peps-watchlists-checks/new-check:
     post:
       tags:
         - Sanctions PEPs Watchlists
@@ -553,14 +553,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/main.problemJson"
-  "/v1/sanctions-peps-watchlists/{sanction_pep_watchlist_id}":
+  "/v1/sanctions-peps-watchlists-checks/{sanctions_peps_watchlists_check_id}":
     delete:
       tags:
         - Sanctions PEPs Watchlists
       summary: Delete Sanctions, PEPs, and Watchlists Aggregate
       parameters:
-        - description: sanction_pep_watchlist_id
-          name: sanction_pep_watchlist_id
+        - description: sanctions_peps_watchlists_check_id
+          name: sanctions_peps_watchlists_check_id
           in: path
           required: true
           schema:
@@ -790,12 +790,12 @@ components:
           $ref: "#/components/schemas/main.createdBy"
         organisation_id:
           type: string
-        sanction_pep_watchlist_id:
-          type: string
         sanction_pep_watchlist_search_executions:
           type: array
           items:
             $ref: "#/components/schemas/main.sanctionPepWatchlistSearchExecution"
+        sanctions_peps_watchlists_check_id:
+          type: string
     main.createMediaSearchConfigRequest:
       type: object
       properties:
@@ -955,7 +955,7 @@ components:
       properties:
         sanction_pep_watchlist_execution_id:
           type: string
-        sanction_pep_watchlist_id:
+        sanctions_peps_watchlists_check_id:
           type: string
     main.createSanctionsPepsWatchlistsConfigurationRequest:
       type: object

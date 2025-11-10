@@ -1037,6 +1037,7 @@ components:
               enum:
                 - INDIVIDUAL
                 - LEGAL_ENTITY
+                - VESSEL
               example: INDIVIDUAL
     main.createSubjectResponse:
       type: object
@@ -2100,6 +2101,7 @@ components:
           enum:
             - INDIVIDUAL
             - LEGAL_ENTITY
+            - VESSEL
     main.subjectMatch:
       type: object
       properties:

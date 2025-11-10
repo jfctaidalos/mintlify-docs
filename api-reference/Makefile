@@ -1,0 +1,2 @@
+run:
+	mint dev

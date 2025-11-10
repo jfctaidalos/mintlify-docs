@@ -117,5 +117,13 @@
     "socials": {
       "linkedin": "https://www.linkedin.com/company/taidalos/"
     }
+  },
+  "api": {
+    "playground": {
+      "display": "interactive"
+    },
+    "examples": {
+      "languages": [ "curl",  "python", "javascript", "java", "go" ]
+    }
   }
 }

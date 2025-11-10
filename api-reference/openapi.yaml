@@ -1,0 +1,2347 @@
+openapi: 3.0.0
+info:
+  title: Taidalos API Documentation
+  termsOfService: https://www.taidalos.com/gtc/
+  contact:
+    name: Customer Support
+    url: https://www.taidalos.com
+    email: cs@taidalos.com
+  version: "1.0"
+paths:
+  /v1/media-search-articles/override-disposition:
+    post:
+      tags:
+        - Media Search
+      summary: Override Media Search Article Risk Assessment
+      parameters:
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/main.overrideMediaArticleDispositionRequest"
+        description: request body
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.overrideMediaArticleDispositionResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  /v1/media-search-summaries/override-summary:
+    post:
+      tags:
+        - Media Search
+      summary: Override Media Search Summary
+      parameters:
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/main.overrideMediaSearchSummaryRequest"
+        description: request body
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.overrideMediaSearchSummaryResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  "/v1/media-searches/aggregate/{media_search_id}":
+    get:
+      tags:
+        - Media Search
+      summary: Media Search Aggregate
+      parameters:
+        - description: media_search_id
+          name: media_search_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - description: "Remove Markdown (options: true, false, default: false)"
+          name: remove_markdown
+          in: query
+          schema:
+            type: string
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.getMediaSearchAggregateResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  "/v1/media-searches/configuration/by-media-search-id/{media_search_id}":
+    get:
+      tags:
+        - Media Search Configuration
+      summary: Media Search Config by Search ID
+      parameters:
+        - description: media_search_id
+          name: media_search_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.getMediaSearchConfigResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  /v1/media-searches/configuration/create-configuration:
+    post:
+      tags:
+        - Media Search Configuration
+      summary: Create Media Search Configuration
+      parameters:
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/main.createMediaSearchConfigRequest"
+        description: request body
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.createSearchConfigResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  "/v1/media-searches/configuration/{media_search_configuration_id}":
+    get:
+      tags:
+        - Media Search Configuration
+      summary: Get Media Search Config
+      parameters:
+        - description: media_search_configuration_id
+          name: media_search_configuration_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.getMediaSearchConfigResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  /v1/media-searches/create-search:
+    post:
+      tags:
+        - Media Search
+      summary: Create Media Search
+      parameters:
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/main.createMediaSearchRequest"
+        description: request body
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.createMediaSearchResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  /v1/media-searches/execute-media-search:
+    post:
+      tags:
+        - Media Search
+      summary: Execute Media Search
+      parameters:
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/main.executeMediaSearchRequest"
+        description: request body
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.executeMediaSearchResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  "/v1/media-searches/execution/{media_search_execution_id}":
+    get:
+      tags:
+        - Media Search
+      summary: Media Search Execution
+      parameters:
+        - description: media_search_execution_id
+          name: media_search_execution_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - description: "Remove Markdown (options: true, false, default: false)"
+          name: remove_markdown
+          in: query
+          schema:
+            type: string
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.getSearchExecutionResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  /v1/media-searches/find:
+    get:
+      tags:
+        - Media Search
+      summary: Find Media Searches
+      parameters:
+        - description: Set the page size (max. 1,000)
+          name: page_size
+          in: query
+          schema:
+            type: string
+        - description: Set the page you want to query
+          name: page
+          in: query
+          schema:
+            type: string
+        - description: Filter for searches by media_search_id
+          name: media_search_id
+          in: query
+          schema:
+            type: string
+        - description: Filter for searches by subject_id
+          name: subject_id
+          in: query
+          schema:
+            type: string
+        - description: Filter for searches by media_search_configuration_id
+          name: media_search_configuration_id
+          in: query
+          schema:
+            type: string
+        - description: Filter for searches by internal_subject_id
+          name: internal_subject_id
+          in: query
+          schema:
+            type: string
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.findMediaSearchesResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  "/v1/media-searches/{media_search_id}":
+    get:
+      tags:
+        - Media Search
+      summary: Media Search Meta-Data
+      parameters:
+        - description: media_search_id
+          name: media_search_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MediaSearchMetaAggregateResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+    delete:
+      tags:
+        - Media Search
+      summary: Delete Media Search
+      parameters:
+        - description: media_search_id
+          name: media_search_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  "/v1/media-searches/{media_search_id}/pdf":
+    get:
+      tags:
+        - Media Search
+      summary: Media Search PDF
+      parameters:
+        - description: media_search_id
+          name: media_search_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - description: "Report scope (options: DEFAULT, EXTENDED, default: DEFAULT)"
+          name: scope
+          in: query
+          schema:
+            type: string
+        - description: Basic Token
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: PDF file output
+          content:
+            application/pdf:
+              schema:
+                type: string
+        "400":
+          description: Bad Request
+          content:
+            application/pdf:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  "/v1/sanctions-peps-watchlists/aggregate/{sanctions_peps_watchlists_id}":
+    get:
+      tags:
+        - Sanctions PEPs Watchlists
+      summary: Get Sanctions, PEPs, and Watchlists Aggregate
+      parameters:
+        - description: sanctions_peps_watchlists_id
+          name: sanctions_peps_watchlists_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - description: "Remove Markdown (options: true, false, default: false)"
+          name: remove_markdown
+          in: query
+          schema:
+            type: string
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.getSanctionsPepsWatchlistsAggregateResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  /v1/sanctions-peps-watchlists/configuration/create-configuration:
+    post:
+      tags:
+        - Sanctions PEPs Watchlists
+      summary: Create Sanctions, PEPs, and Watchlists Configuration
+      parameters:
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationRequ\
+                est"
+        description: request body
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationResp\
+                  onse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  /v1/sanctions-peps-watchlists/create-search:
+    post:
+      tags:
+        - Sanctions PEPs Watchlists
+      summary: Create Sanctions, PEPs, and Watchlists Search
+      parameters:
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/main.createSanctionsPepAndWatchlistSearchRequest"
+        description: request body
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.createSanctionsPepAndWatchlistSearchResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  /v1/subjects/create-subject:
+    post:
+      description: with this POST request you can create a new subject
+      tags:
+        - Subjects
+      summary: Create Subject
+      parameters:
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/main.createSubjectRequest"
+        description: request body
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.createSubjectResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  "/v1/subjects/{subject_id}":
+    get:
+      tags:
+        - Subjects
+      summary: Get Subject
+      parameters:
+        - description: subject_id
+          name: subject_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.getSubjectResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+    delete:
+      tags:
+        - Subjects
+      summary: Delete Subject
+      parameters:
+        - description: subject_id
+          name: subject_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.deleteSubjectResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+tags:
+  - description: Operations about subjects
+    name: Subjects
+  - description: Operations about media search configuration
+    name: Media Search Configuration
+  - description: Operations about media search
+    name: Media Search
+externalDocs:
+  description: Get started with guides
+  url: https://taidalos.com/tags/guide/
+servers:
+  - url: https://api.taidalos.com
+components:
+  schemas:
+    MediaSearchMetaAggregateResponse:
+      type: object
+      properties:
+        data:
+          description: "`data` represents the metadata item for a media search, containing
+            details such as IDs, timestamps, and configurations."
+          allOf:
+            - $ref: "#/components/schemas/MediaSearchMetaAggregateResponseItem"
+    MediaSearchMetaAggregateResponseItem:
+      type: object
+      properties:
+        created_at:
+          description: "`created_at` specifies the timestamp when the entity was created,
+            formatted as an ISO 8601 string."
+          type: string
+          example: 2020-01-01T00:00:00Z
+        created_by:
+          description: "`created_by` indicates the identifier of the user who created the
+            resource, typically a UUID."
+          type: string
+          example: c357e592-4a89-4381-b3b3-5015a36206b2
+        media_search_configuration_id:
+          description: "`media_search_configuration_id` is the unique identifier for a
+            media search configuration."
+          type: string
+          example: 08f835bd-a347-4804-8c19-77f879f2972d
+        media_search_execution_ids:
+          description: "`media_search_execution_ids` contains a list of IDs representing
+            the executions of a media search."
+          type: array
+          items:
+            type: string
+          example:
+            - e592d75a-9ef7-4ed4-ab3e-0897858c5709
+            - 3981d36e-3a94-475d-adc8-6a962184e772
+            - a997bcf8-a7ea-437d-970b-32ac3d26f47d
+        media_search_id:
+          description: "`media_search_id` represents the unique identifier for a media
+            search operation."
+          type: string
+          example: 64530ff9-2a7b-427e-8f4f-a670c8c18ee6
+        organisation_id:
+          description: "`organisation_id` represents the unique identifier of the
+            organisation associated with the media search."
+          type: string
+          example: 123e4567-e89b-12d3-a456-426655440000
+        subject_id:
+          description: "`subject_id` represents the unique identifier of the subject
+            associated with the media search operation."
+          type: string
+          example: a89c1104-9e8b-4de3-aefe-f2f4269cb2db
+    main.KeyWordListResponseItem:
+      type: object
+      properties:
+        keyword_list_id:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        name:
+          type: string
+    main.NewKeyWordListInputItem:
+      type: object
+      properties:
+        keywords:
+          type: array
+          items:
+            type: string
+          example:
+            - Fraud
+            - Theft
+            - Steal
+            - Scam
+            - Money Laundering
+            - Sanction
+            - Human Rights Violation
+            - Terrorist
+            - Organised Crime
+            - Corrupt
+            - Bribe
+            - Tax Evasion
+            - Convicted
+            - Sentenced
+            - Arrested
+            - Child Labour
+        name:
+          type: string
+          example: ESG Risk
+    main.SanctionPepWatchlistSearch:
+      type: object
+      properties:
+        created_at:
+          type: string
+        created_by:
+          $ref: "#/components/schemas/main.createdBy"
+        organisation_id:
+          type: string
+        sanction_pep_watchlist_id:
+          type: string
+        sanction_pep_watchlist_search_executions:
+          type: array
+          items:
+            $ref: "#/components/schemas/main.sanctionPepWatchlistSearchExecution"
+    main.createMediaSearchConfigRequest:
+      type: object
+      properties:
+        data:
+          description: "`data` contains the parameters for configuring a media search,
+            such as keywords, risk categories, and language."
+          type: object
+          required:
+            - keyword_lists
+            - language
+            - risk_categories
+          properties:
+            disambiguation_auto_risk_assessment:
+              description: "`disambiguation_auto_risk_assessment` if `active` is set `true`,
+                articles with the set disambiguation `threshold` or below will
+                be automatically risk-assessed as not risky."
+              type: object
+              properties:
+                active:
+                  description: "`active` indicates whether the
+                    `disambiguation_auto_risk_assessment`is active or not"
+                  type: boolean
+                  example: true
+                threshold:
+                  description: "`threshold` if an article has disambiguation match the score of
+                    threshold or below, the article will be risk-assesses as not
+                    risky."
+                  type: integer
+                  example: 2
+            keyword_lists:
+              description: "`keyword_lists` contains a list of keyword list input items, each
+                representing a group of keywords for the search configuration."
+              type: array
+              items:
+                $ref: "#/components/schemas/main.NewKeyWordListInputItem"
+            keywords:
+              description: "`WARNING: keywords are deprecated - use keyword_lists instead`.
+                Your current implementation with `keywords` is still supported."
+              type: array
+              items:
+                type: string
+              example:
+                - Fraud
+                - Theft
+                - Steal
+                - Scam
+                - Money Laundering
+                - Sanction
+                - Human Rights Violation
+                - Terrorist
+                - Organised Crime
+                - Corrupt
+                - Bribe
+                - Tax Evasion
+                - Convicted
+                - Sentenced
+                - Arrested
+                - Child Labour
+            language:
+              description: "`language` represents the language the search will be summarised
+                in. The language and the language of the risk_categories need to
+                match."
+              type: string
+              example: en
+            look_back_period:
+              description: "`look_back_period` defines the look back period. Articles that got
+                published before the look back period (today - days specified)
+                will be ignored."
+              allOf:
+                - $ref: "#/components/schemas/main.lookBackPeriod"
+            monitoring:
+              description: "`monitoring` defines the monitoring configuration details
+                associated with the media search configuration request."
+              allOf:
+                - $ref: "#/components/schemas/main.monitoringInput"
+            risk_categories:
+              description: "`risk_categories` represents a list of risk types."
+              type: array
+              items:
+                type: string
+              example:
+                - Fraud
+                - Money Laundering
+                - Sanctions
+                - Human Rights Abuse
+                - Environmental Abuse
+                - Terrorism
+                - Organized Crime
+                - Corruption
+                - Tax Crimes
+                - Violence
+                - Theft
+                - Discrimination
+                - Other
+    main.createMediaSearchRequest:
+      type: object
+      properties:
+        data:
+          description: "`data` holds the request payload for creating a media search,
+            including subject, configuration, and execution details."
+          type: object
+          properties:
+            execute_immediately:
+              description: "`execute_immediately` indicates if the media search should be
+                executed immediately after creation."
+              type: boolean
+              example: true
+            media_search_configuration_id:
+              description: "`media_search_configuration_id` represents the unique identifier
+                for the media search configuration used in the// request
+                Search.ConfigId represents the UUID for the media search
+                configuration associated with the request."
+              type: string
+              example: 8920772b-c7a7-42cb-8a6b-0bdfbabb8334
+            subject_id:
+              description: "`subject_id` represents the unique identifier of the subject
+                involved in the media search request."
+              type: string
+              example: 43a87a3d-0808-4fd2-9cd1-9dbc9c9f75e0
+    main.createMediaSearchResponse:
+      type: object
+      properties:
+        data:
+          description: "`data` contains the media search result identifiers, including
+            `media_search_id` and `media_search_execution_id`."
+          type: object
+          properties:
+            media_search_execution_id:
+              description: "`media_search_execution_id` represents the unique identifier for
+                tracking the execution of a media search."
+              type: string
+            media_search_id:
+              description: "`media_search_id` represents the unique identifier of a created
+                media search within the response."
+              type: string
+    main.createSanctionsPepAndWatchlistSearchRequest:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/main.createSanctionsPepAndWatchlistSearchRequestIte\
+            m"
+    main.createSanctionsPepAndWatchlistSearchRequestItem:
+      type: object
+      properties:
+        sanction_pep_watchlist_configuration_id:
+          type: string
+        subject_id:
+          type: string
+    main.createSanctionsPepAndWatchlistSearchResponse:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/main.createSanctionsPepAndWatchlistSearchResponseIt\
+            em"
+    main.createSanctionsPepAndWatchlistSearchResponseItem:
+      type: object
+      properties:
+        sanction_pep_watchlist_execution_id:
+          type: string
+        sanction_pep_watchlist_id:
+          type: string
+    main.createSanctionsPepsWatchlistsConfigurationRequest:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationRequ\
+            estItem"
+    main.createSanctionsPepsWatchlistsConfigurationRequestItem:
+      type: object
+    main.createSanctionsPepsWatchlistsConfigurationResponse:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationResp\
+            onseItem"
+    main.createSanctionsPepsWatchlistsConfigurationResponseItem:
+      type: object
+      properties:
+        sanction_pep_watchlist_configuration_id:
+          type: string
+    main.createSearchConfigResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            media_search_configuration_id:
+              description: "`media_search_configuration_id` represents the unique identifier
+                for a media search configuration."
+              type: string
+              example: 123e4567-e89b-12d3-a456-426614174000
+    main.createSubjectPlaceRequest:
+      type: object
+      properties:
+        description:
+          description: "`description` provides a short explanation or label for the place
+            associated with the subject."
+          type: string
+          example: Head Office
+        place:
+          description: "`place` represents the location associated with the subject,
+            formatted as an address or identifier."
+          type: string
+          example: 123 Main Street, New York, USA
+    main.createSubjectRequest:
+      type: object
+      properties:
+        data:
+          description: "`data` represents the primary structure containing information
+            about a subject to be created, including details like name, type,
+            industries, and more."
+          type: object
+          properties:
+            aliases:
+              description: "`aliases` specifies alternative names or titles associated with
+                the subject."
+              type: array
+              items:
+                type: string
+              example:
+                - Facebook
+                - Instagram
+            date_of_birth:
+              description: "`date_of_birth` represents the date of birth of the subject in the
+                format YYYY-MM-DD."
+              type: string
+              example: 1980-04-07
+            date_of_incorporation:
+              description: '`date_of_incorporation` represents the incorporation date of a
+                legal entity in the format "YYYY-MM-DD".'
+              type: string
+              example: 1980-04-07
+            industries:
+              description: "`industries` represents a list of industries associated with the
+                subject, e.g., Banking, Insurance, Telecommunications."
+              type: array
+              items:
+                type: string
+              example:
+                - Banking
+                - Insurance
+                - Telecommunications
+            internal_id:
+              description: "`internal_id` represents a unique identifier for the subject
+                within an external system, such as CRM."
+              type: string
+              example: crm_id#123456789
+            name:
+              description: "`name` represents the name of the subject to be created."
+              type: string
+              example: Jan Marsalek
+            nationalities:
+              description: "`nationalities` represents the list of nationalities associated
+                with the subject, serialized as an array of strings."
+              type: array
+              items:
+                type: string
+              example:
+                - US
+                - UK
+            places:
+              description: "`places` is a list of places associated with the subject, each
+                defined by a description and a place identifier."
+              type: array
+              items:
+                $ref: "#/components/schemas/main.createSubjectPlaceRequest"
+            type:
+              description: '`type` specifies the type of subject being created, either
+                "INDIVIDUAL" or "LEGAL_ENTITY".'
+              type: string
+              enum:
+                - INDIVIDUAL
+                - LEGAL_ENTITY
+              example: INDIVIDUAL
+    main.createSubjectResponse:
+      type: object
+      properties:
+        data:
+          description: "`data` contains the created subject's unique identifier."
+          type: object
+          properties:
+            subject_id:
+              description: "`subject_id` is the unique identifier for the created subject."
+              type: string
+              example: 123e4567-e89b-12d3-a456-426614174000
+    main.createdBy:
+      type: object
+      properties:
+        user_id:
+          description: "`user_id` represents the unique identifier for the user."
+          type: string
+          example: d43a4ec2-3eb8-46ad-9ca9-09a26540968f
+    main.defaultProblemContext:
+      type: object
+      required:
+        - method
+        - path
+      properties:
+        method:
+          description: "`method` specifies the HTTP method (e.g., GET, POST) that was used
+            in the problematic request."
+          type: string
+          example: "{method}"
+        path:
+          description: "`path` specifies the HTTP request path associated with the
+            encountered problem."
+          type: string
+          example: "{path}"
+    main.deleteSubjectResponse:
+      type: object
+      properties:
+        data:
+          description: "`data` represents the details of a deletion operation, including
+            the count of media searches deleted and subject deletion status."
+          type: object
+          properties:
+            media_searches_deleted_count:
+              description: "`media_searches_deleted_count` represents the number of media
+                searches deleted during the subject deletion operation."
+              type: integer
+              example: 3
+            subject_deleted:
+              description: "`subject_deleted` indicates whether the subject was successfully
+                deleted in the deletion operation."
+              type: boolean
+              example: true
+    main.disposition:
+      type: object
+      required:
+        - risk
+      properties:
+        created_at:
+          description: "`created_at` represents the timestamp when the record was created."
+          type: string
+          example: 2024-10-22T07:37:56.676763Z
+        created_by:
+          description: "`created_by` represents the user who created the media search
+            article disposition."
+          allOf:
+            - $ref: "#/components/schemas/main.createdBy"
+        justification:
+          description: "`justification` provides the reasoning or explanation behind a
+            particular disposition in a media search article."
+          type: string
+          example: Jan Marsalek, an Austrian executive and fugitive, is central to
+            Austria's biggest espionage scandal. He is wanted by German police
+            for alleged fraud and is believed to be in Russia. Marsalek is
+            accused of commissioning former security officials to pass sensitive
+            information to Russia. He fled to Moscow in 2020 and was reportedly
+            recruited by Russian agents in 2014.
+        media_search_article_disposition_id:
+          description: "`media_search_article_disposition_id` represents the unique
+            identifier for the disposition assigned to a media search article."
+          type: string
+          example: f0127405-c357-469a-a145-df77c5f0810f
+        media_search_article_id:
+          description: "`media_search_article_id` represents the unique identifier for a
+            specific media search article."
+          type: string
+          example: ca6993d5-c4a5-4227-a957-81a76d8279b4
+        media_search_execution_id:
+          description: "`media_search_execution_id` represents the unique identifier for a
+            media search execution."
+          type: string
+          example: f0549515-ffb9-4dfd-a116-efb4143afda4
+        media_search_id:
+          description: "`media_search_id` represents the unique identifier for a media
+            search."
+          type: string
+          example: 4ccd19dc-c60b-4ce7-b512-bba106f1cb16
+        organisation_id:
+          description: "`organisation_id` represents the unique identifier for an
+            organisation."
+          type: string
+          example: d43a4ec2-3eb8-46ad-9ca9-09a26540968f
+        risk:
+          description: "`risk` represents the risk level associated with a media search
+            article."
+          type: string
+          enum:
+            - RISKY
+            - NOT_RISKY
+        risk_categories:
+          description: "`risk_categories` holds an array of strings that represent various
+            risk categories associated with a media search article."
+          type: array
+          items:
+            type: string
+          example:
+            - Fraud
+            - Money Laundering
+            - Sanctions
+            - Human Rights Abuse
+            - Terrorism
+            - Organized Crime
+            - Corruption
+            - Tax Crimes
+    main.executeMediaSearchRequest:
+      type: object
+      properties:
+        data:
+          description: "`data` represents the request payload containing the
+            `media_search_id` for executing a media search."
+          type: object
+          properties:
+            media_search_id:
+              description: "`media_search_id` represents the unique identifier for the media
+                search operation."
+              type: string
+    main.executeMediaSearchResponse:
+      type: object
+      properties:
+        data:
+          description: "`data` represents the structure holding identifiers for media
+            search and its execution results."
+          type: object
+          properties:
+            media_search_execution_id:
+              description: "`media_search_execution_id` represents the unique identifier for
+                the execution of a media search operation."
+              type: string
+            media_search_id:
+              description: "`media_search_id` represents the unique identifier for the media
+                search operation."
+              type: string
+    main.findMediaSearchResponseItem:
+      type: object
+      properties:
+        created_at:
+          type: string
+        internal_subject_id:
+          type: string
+        media_search_config_id:
+          type: string
+        media_search_id:
+          type: string
+        subject_id:
+          type: string
+    main.findMediaSearchesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/main.findMediaSearchResponseItem"
+        items_count:
+          type: integer
+        page:
+          type: integer
+        total:
+          type: integer
+    main.getMediaSearchAggregateResponse:
+      type: object
+      properties:
+        data:
+          description: "`data` holds the aggregated response data, including media search
+            details, subject information, configuration, and organisation
+            metadata."
+          allOf:
+            - $ref: "#/components/schemas/main.getMediaSearchAggregateResponseItem"
+    main.getMediaSearchAggregateResponseItem:
+      type: object
+      properties:
+        media_search:
+          description: "`media_search` represents the aggregated data related to a media
+            search, including executions and summaries."
+          allOf:
+            - $ref: "#/components/schemas/main.mediaSearchAggregate"
+        media_search_configuration:
+          description: "`media_search_configuration` holds the configuration details for
+            executing a media search, including filters and limits."
+          allOf:
+            - $ref: "#/components/schemas/main.mediaSearchConfiguration"
+        organisation:
+          description: "`organisation` holds metadata about the associated organisation,
+            including identifiers and related details."
+          allOf:
+            - $ref: "#/components/schemas/main.organisationMeta"
+        subject:
+          description: "`subject` holds the subject entity data, including identifiers,
+            name, type, industries, nationalities, and more."
+          allOf:
+            - $ref: "#/components/schemas/main.subjectEntity"
+    main.getMediaSearchConfigResponse:
+      type: object
+      properties:
+        data:
+          description: "`data` contains the detailed configuration of a media search."
+          allOf:
+            - $ref: "#/components/schemas/main.mediaSearchConfiguration"
+    main.getSanctionsPepsWatchlistsAggregateResponse:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/main.sanctionsPepsWatchlistsAggregate"
+    main.getSearchExecutionResponse:
+      type: object
+      properties:
+        data:
+          description: "`data` represents the main content of the search execution
+            response, encapsulating details about the media search execution."
+          allOf:
+            - $ref: "#/components/schemas/main.getSearchExecutionResponseItem"
+    main.getSearchExecutionResponseItem:
+      type: object
+      properties:
+        created_at:
+          description: "`created_at` represents the timestamp indicating when the resource
+            was created."
+          type: string
+        created_by:
+          description: "`created_by` represents the user who initiated or authored the
+            entity, identified by their unique UserId."
+          type: object
+          properties:
+            user_id:
+              description: "`user_id` represents the unique identifier of the user who created
+                the associated entity."
+              type: string
+        media_article_aggregates:
+          description: "`media_article_aggregates` represents a collection of media
+            article aggregates associated with a media search execution."
+          type: array
+          items:
+            $ref: "#/components/schemas/main.mediaArticleAggregate"
+        media_search_config:
+          description: "`media_search_config` represents the configuration details for a
+            media search execution."
+          type: object
+          properties:
+            media_search_configuration_id:
+              description: "`media_search_configuration_id` is the unique identifier of the
+                media search configuration."
+              type: string
+            media_search_configuration_version:
+              description: "`media_search_configuration_version` specifies the version of the
+                media search configuration."
+              type: integer
+        media_search_execution_id:
+          description: "`media_search_execution_id` is the unique identifier for a media
+            search execution."
+          type: string
+        media_search_id:
+          description: "`media_search_id` represents the unique identifier for a specific
+            media search associated with this execution."
+          type: string
+        organisation_id:
+          description: "`organisation_id` represents the unique identifier for the
+            organisation associated with the media search execution."
+          type: string
+        status:
+          description: "`status` represents the current state of the media search
+            execution. Possible values: INITIATED, PENDING, PROCESSING, DONE,
+            ERROR."
+          type: string
+          enum:
+            - INITIATED
+            - PENDING
+            - PROCESSING
+            - DONE
+            - ERROR
+        subject:
+          description: "`subject` represents the entity containing a unique identifier for
+            a subject involved in a media search execution."
+          type: object
+          properties:
+            subject_id:
+              description: "`subject_id` represents the unique identifier of the subject
+                associated with the media search execution."
+              type: string
+        updated_at:
+          description: "`updated_at` represents the timestamp when the record was last
+            modified."
+          type: string
+    main.getSubjectResponse:
+      type: object
+      properties:
+        data:
+          description: "`data` holds the detailed information of a subject."
+          allOf:
+            - $ref: "#/components/schemas/main.subjectEntity"
+    main.listProgram:
+      type: object
+      properties:
+        issuer_acronym:
+          type: string
+        issuer_flag:
+          type: string
+        issuer_name:
+          type: string
+        issuer_organisation:
+          type: string
+        issuer_territory:
+          type: string
+        measures:
+          type: array
+          items:
+            type: string
+        program_id:
+          type: string
+        sort_rank:
+          type: integer
+        summary:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+    main.listTopic:
+      type: object
+      properties:
+        category:
+          type: string
+        label:
+          type: string
+        topic_id:
+          type: string
+    main.lookBackPeriod:
+      type: object
+      properties:
+        days:
+          description: >-
+            `days` specifies the look back period in days, represented as an
+            integer.
+
+            All articles that got published before the look back period (today - days specified) will be ignored.
+          type: integer
+          example: 360
+        is_active:
+          description: "`is_active` indicates whether a look back period is enabled for
+            the given configuration."
+          type: boolean
+          example: true
+    main.mediaArticle:
+      type: object
+      properties:
+        created_at:
+          description: "`created_at` indicates the timestamp when the media article was
+            created."
+          type: string
+          example: 2024-10-22T07:37:56.676763Z
+        dispositions:
+          description: "`dispositions` holds an array of disposition records related to
+            the media article."
+          type: array
+          items:
+            $ref: "#/components/schemas/main.disposition"
+        headline:
+          description: "`headline` represents the title or main heading of the media
+            article."
+          type: string
+          example: Spy scandal revives fears of Austrian exposure to Russia
+        media_search_article_id:
+          description: "`media_search_article_id` represents the unique identifier for a
+            specific media search article."
+          type: string
+          example: 4ccd19dc-c60b-4ce7-b512-bba106f1cb16
+        media_search_execution_id:
+          description: "`media_search_execution_id` (uuid) represents the unique
+            identifier for a media search execution."
+          type: string
+          example: 0a1a489b-50df-41a1-920d-6c6df381031e
+        media_search_id:
+          description: "`media_search_id` represents the unique identifier for a media
+            search."
+          type: string
+          example: 4ccd19dc-c60b-4ce7-b512-bba106f1cb16
+        organisation_id:
+          description: "`organisation_id` represents the unique identifier for an
+            organisation."
+          type: string
+          example: d43a4ec2-3eb8-46ad-9ca9-09a26540968f
+        publication_date:
+          description: "`publication_date` indicates the date when the media article was
+            published."
+          type: string
+          example: 2024-10-22T07:37:56.676763Z
+        rank:
+          description: "`rank` represents the position or order of the media article."
+          type: integer
+          example: 1
+        subject_match:
+          description: "`subject_match` represents additional contextual information or
+            resolution for ambiguous data fields in an article."
+          allOf:
+            - $ref: "#/components/schemas/main.subjectMatch"
+        url:
+          description: "`url' represents the web address of the media article."
+          type: string
+          example: https://www.wired.com/story/spy-scandal-revives-fears-austrian-exposure-russia/
+    main.mediaArticleAggregate:
+      type: object
+      properties:
+        dispositions:
+          description: "`dispositions` represents a collection of disposition records
+            related to a media article in the aggregate."
+          type: array
+          items:
+            $ref: "#/components/schemas/main.disposition"
+        media_article:
+          description: "`media_article` represents a media article associated with a media
+            search execution and its related metadata."
+          allOf:
+            - $ref: "#/components/schemas/main.mediaArticle"
+    main.mediaSearchAggregate:
+      type: object
+      properties:
+        created_at:
+          description: "`created_at` represents the timestamp when the media search
+            aggregate was created."
+          type: string
+          example: 2024-10-22T07:37:56.676763Z
+        created_by:
+          description: "`created_by` represents the user who initiated or created the
+            record."
+          allOf:
+            - $ref: "#/components/schemas/main.createdBy"
+        media_search_executions:
+          description: "`media_search_executions` contains an array of media search
+            execution records related to a specific media search."
+          type: array
+          items:
+            $ref: "#/components/schemas/main.mediaSearchExecution"
+        media_search_id:
+          description: "`media_search_id` is a unique identifier for a media search."
+          type: string
+          example: 4ccd19dc-c60b-4ce7-b512-bba106f1cb16
+        media_search_summaries:
+          description: media_search_summaries contains a list of media search summary
+            objects associated with a media search.
+          type: array
+          items:
+            $ref: "#/components/schemas/main.mediaSearchSummary"
+    main.mediaSearchConfiguration:
+      type: object
+      properties:
+        created_at:
+          description: "`created_at` is the timestamp when the media search configuration
+            was created."
+          type: string
+          example: 2024-10-22T07:37:56.676763Z
+        created_by:
+          description: "`created_by` represents the user who created the media search
+            configuration."
+          allOf:
+            - $ref: "#/components/schemas/main.createdBy"
+        disambiguation_auto_risk_assessment:
+          description: "`disambiguation_auto_risk_assessment` if `active` is set `true`,
+            articles with the set disambiguation `threshold` or below will be
+            automatically risk-assessed as not risky."
+          type: object
+          properties:
+            active:
+              description: "`active` indicates whether the
+                `disambiguation_auto_risk_assessment`is active or not"
+              type: boolean
+              example: true
+            threshold:
+              description: "`threshold` if an article has disambiguation match the score of
+                threshold or below, the article will be risk-assessed as not
+                risky."
+              type: integer
+              example: 2
+        is_template:
+          description: "`is_template` indicates if this configuration is a template"
+          type: boolean
+          example: false
+        keyword_lists:
+          description: "`keyword_lists` represents a list of keyword lists associated with
+            the configuration."
+          type: array
+          items:
+            $ref: "#/components/schemas/main.KeyWordListResponseItem"
+        keywords:
+          description: "`WARNING: the field keywords is deprecated - use keyword_lists
+            instead.` `keywords` contains all all keywords from
+            `keyword_lists`.`"
+          type: array
+          items:
+            type: string
+          example:
+            - Fraud
+            - Theft
+            - Steal
+            - Scam
+            - Money Laundering
+            - Sanction
+            - Human Rights Violation
+            - Terrorist
+            - Organised Crime
+            - Corrupt
+            - Bribe
+            - Tax Evasion
+            - Convicted
+            - Sentenced
+            - Arrested
+            - Child Labour
+        language:
+          description: "`language` specifies the language used for the media search
+            configuration."
+          type: string
+          example: en
+        look_back_period:
+          description: "`look_back_period` specifies the look-back period for the media
+            search configuration. All articles that got published before the
+            look back period (today - days specified) are ignored."
+          allOf:
+            - $ref: "#/components/schemas/main.lookBackPeriod"
+        max_number_of_results:
+          description: "`max_number_of_results` defines the maximum number of results
+            allowed for a media search configuration."
+          type: integer
+          example: 20
+        media_search_configuration_id:
+          description: "`media_search_configuration_id` holds the unique identifier for
+            the media search configuration."
+          type: string
+          example: d43a4ec2-3eb8-46ad-9ca9-09a26540968f
+        organisation_id:
+          description: "`organisation_id` is the unique identifier of the organisation
+            associated with the configuration"
+          type: string
+          example: 07f8269e-4583-41c5-bb0e-bea37f3c0569
+        reference:
+          description: "`reference` holds the reference which can be used for referencing
+            the media search configuration."
+          type: string
+          example: english_generic
+        risk_categories:
+          description: "`risk_categories` lists the risk categories associated with the
+            media search."
+          type: array
+          items:
+            type: string
+          example:
+            - Fraud
+            - Money Laundering
+            - Sanctions
+            - Human Rights Abuse
+            - Environmental Abuse
+            - Terrorism
+            - Organized Crime
+            - Corruption
+            - Tax Crimes
+            - Violence
+            - Theft
+            - Discrimination
+            - Other
+        subject_names_fuzzy:
+          description: "`subject_names_fuzzy` is the fuzzy matching standard for subject
+            names"
+          type: string
+          example: STANDARD
+        title:
+          description: "`title` represents the title of the media search configuration."
+          type: string
+          example: English Generic
+        version:
+          description: "`version` represents the version number of the media search
+            configuration."
+          type: integer
+          example: 1
+    main.mediaSearchExecution:
+      type: object
+      properties:
+        created_at:
+          description: "`created_at` signifies the timestamp when the media search
+            execution record was created."
+          type: string
+          example: 2024-10-22T07:37:04.340387Z
+        media_search_articles:
+          description: "`media_search_articles` contains an array of media articles
+            retrieved for a media search execution."
+          type: array
+          items:
+            $ref: "#/components/schemas/main.mediaArticle"
+        media_search_configuration_version:
+          description: "`media_search_configuration_version` denotes the version number of
+            the media search configuration applied during the search execution."
+          type: integer
+          example: 1
+        media_search_execution_id:
+          description: "`media_search_execution_id` represents the unique identifier for a
+            media search execution."
+          type: string
+          example: 4ccd19dc-c60b-4ce7-b512-bba106f1cb16
+        status:
+          description: "`status` represents the status of the media search execution."
+          type: string
+          enum:
+            - INITIATED
+            - PENDING
+            - PROCESSING
+            - DONE
+            - ERROR
+    main.mediaSearchSummary:
+      type: object
+      properties:
+        created_at:
+          description: "`created_at` represents the timestamp when the media search
+            summary was created."
+          type: string
+          example: 2024-10-22T07:37:56.676763Z
+        created_by:
+          description: "`created_by´ represents the user who created the media search
+            summary"
+          allOf:
+            - $ref: "#/components/schemas/main.createdBy"
+        media_search_summary_id:
+          description: "`media_search_summary_id` is a unique identifier for a media
+            search summary."
+          type: string
+          example: 6f677744-e428-4706-b51e-d9b03afc5b42
+        risk_categories:
+          description: "`risk_categories` specifies the categories of risk associated with
+            the media search summary."
+          type: array
+          items:
+            type: string
+          example:
+            - Fraud
+            - Money Laundering
+            - Sanctions
+            - Human Rights Abuse
+            - Environmental Abuse
+            - Terrorism
+            - Organized Crime
+            - Corruption
+            - Tax Crimes
+            - Violence
+            - Theft
+            - Discrimination
+        risky:
+          description: "`risky` indicates whether the media search summary content is
+            considered risky."
+          type: boolean
+          example: true
+        summary:
+          description: summary provides a summary of all articles
+          type: string
+          example: Jan Marsalek, former COO of Wirecard, is implicated in major fraud
+            scandals, embezzlement, espionage, and illegal financial activities.
+            He is a fugitive with ties to Russian intelligence and military
+            services, involved in espionage activities and financial fraud.
+            Marsalek is wanted by multiple authorities and is considered a
+            high-risk individual in terms of financial crimes and security
+            threats.
+    main.monitoringInput:
+      type: object
+      properties:
+        interval:
+          description: "`interval` specifies the frequency of monitoring, represented as a
+            string."
+          type: string
+          example: WEEKLY
+        is_active:
+          description: "`is_active` indicates whether monitoring is enabled for the given
+            configuration."
+          type: boolean
+          example: true
+    main.organisationMeta:
+      type: object
+      properties:
+        organisation_id:
+          description: "`organisation_id` represents the unique identifier of the
+            organisation."
+          type: string
+          example: d43a4ec2-3eb8-46ad-9ca9-09a26540968f
+    main.overrideMediaArticleDispositionRequest:
+      type: object
+      properties:
+        data:
+          description: "`data` defines the structure containing justification, risk level,
+            and associated risk categories for an entity."
+          type: object
+          required:
+            - justification
+            - media_article_id
+            - risk
+          properties:
+            justification:
+              description: "`justification` specifies the reason or rationale for the assigned
+                risk or disposition of the subject entity."
+              type: string
+              example: Subject conducted fraud.
+            media_article_id:
+              description: "`media_article_id` represents the unique identifier for a media
+                search article."
+              type: string
+              example: 123e4567-e89b-12d3-a456-426614174000
+            risk:
+              description: '`risk` specifies the risk level associated with an entity, such as
+                "RISKY" or "NOT_RISKY".'
+              type: string
+              enum:
+                - RISKY
+                - NOT_RISKY
+              example: RISKY
+            risk_categories:
+              description: '`risk_categories` specifies the categories of risk associated with
+                an entity, represented as a list of descriptive strings. Risk
+                Categories are required if the risk is set to "RISKY" and are
+                not allowed if the risk is set to "NOT_RISKY".'
+              type: array
+              items:
+                type: string
+              example:
+                - Money Laundering
+                - Sanctions
+                - Human Rights Abuse
+    main.overrideMediaArticleDispositionResponse:
+      type: object
+      properties:
+        data:
+          description: "`data` represents the structure containing the unique identifier
+            for the updated media search article disposition."
+          type: object
+          properties:
+            media_search_article_disposition_id:
+              description: "`media_search_article_disposition_id` represents the unique
+                identifier for the updated media search article disposition."
+              type: string
+              example: 123e4567-e89b-12d3-a456-426614174000
+    main.overrideMediaSearchSummaryRequest:
+      type: object
+      properties:
+        data:
+          description: "`data` contains the media search summary details and risk
+            assessment information for the override request."
+          type: object
+          properties:
+            media_search_id:
+              description: "`media_search_id` uniquely identifies a media search process
+                within the override request payload."
+              type: string
+              example: 123e4567-e89b-12d3-a456-426614174000
+            risk_categories:
+              description: "`risk_categories` represents a list of risk categories associated
+                with the media search."
+              type: array
+              items:
+                type: string
+              example:
+                - Money Laundering
+                - Sanctions
+                - Human Rights Abuse
+            risky:
+              description: "`risky` indicates whether the media search is assessed as risky or
+                not."
+              type: boolean
+              example: true
+            summary:
+              description: "`summary` provides a summary of the all media search's articles."
+              type: string
+              example: " - Jan Marsalek is a central figure in the Wirecard scandal, one of
+                Germany's largest financial frauds, involving €1.9 billion in
+                non-existent assets. /n - He is accused of fraud, false
+                accounting, embezzlement, and operating a shadow empire
+                alongside Wirecard's official operations. /n - Marsalek
+                allegedly used third-party companies to siphon funds from banks
+                and investors, and engaged in money laundering activities,
+                particularly in the Philippines and Singapore."
+    main.overrideMediaSearchSummaryResponse:
+      type: object
+      properties:
+        data:
+          description: "`data` contains details specific to the override media search
+            summary response."
+          allOf:
+            - $ref: "#/components/schemas/main.overrideMediaSearchSummaryResponseItem"
+    main.overrideMediaSearchSummaryResponseItem:
+      type: object
+      properties:
+        media_search_summary_id:
+          description: "`media_search_summary_id` uniquely identifies a media search
+            summary entry in the response structure."
+          type: string
+          example: 123e4567-e89b-12d3-a456-426614174000
+    main.problemJson:
+      description: Standardized error response format
+      type: object
+      properties:
+        context:
+          description: "`context` provides additional information about the error,
+            including the HTTP method and path where it occurred."
+          allOf:
+            - $ref: "#/components/schemas/main.defaultProblemContext"
+        details:
+          description: "`details` provides a detailed human-readable explanation of the
+            specific error."
+          type: string
+          example: Details explaining the error
+        instance:
+          description: "`instance` specifies a unique URI identifying the context of the
+            error, such as organisation, user, and request details."
+          type: string
+          example: /org/{org_id}/user/{user_id}/request-id/{request_id}
+        title:
+          description: "`title` provides a short, human-readable summary of the problem
+            type or error encountered."
+          type: string
+          example: Error Title
+        type:
+          description: "`type` is a URI reference that identifies the problem type,
+            allowing clients to recognize the type of error encountered."
+          type: string
+          example: https://errors.taidalos.com/common/{error-type}
+    main.sanctionPepWatchlistSearchExecution:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/main.sanctionsPepsWatchlistsResultAggregate"
+        sanction_pep_watchlist_search_execution_id:
+          type: string
+    main.sanctionsPepsWatchlistsAggregate:
+      type: object
+      properties:
+        sanction_pep_watchlist_search:
+          $ref: "#/components/schemas/main.SanctionPepWatchlistSearch"
+        subject:
+          $ref: "#/components/schemas/main.subjectEntity"
+    main.sanctionsPepsWatchlistsResultAggregate:
+      type: object
+      properties:
+        addresses:
+          type: array
+          items:
+            type: string
+        aliases:
+          type: array
+          items:
+            type: string
+        countries:
+          type: array
+          items:
+            type: string
+        country_of_origin:
+          type: string
+        created_at:
+          type: string
+        created_by:
+          $ref: "#/components/schemas/main.createdBy"
+        date_of_birth:
+          type: string
+        date_of_death:
+          type: string
+        date_of_incorporation:
+          type: string
+        descriptions:
+          description: NEW
+          type: array
+          items:
+            type: string
+        dispositions:
+          type: array
+          items:
+            $ref: "#/components/schemas/main.sanctionsPepsWatchlistsResultDisposition"
+        educations:
+          type: array
+          items:
+            type: string
+        end_date:
+          type: string
+        gender:
+          type: string
+        nationalities:
+          type: array
+          items:
+            type: string
+        notes:
+          type: array
+          items:
+            type: string
+        organisation_id:
+          type: string
+        place_of_origin:
+          type: string
+        political_affiliations:
+          type: array
+          items:
+            type: string
+        positions:
+          type: array
+          items:
+            type: string
+        previous_names:
+          type: array
+          items:
+            type: string
+        programs:
+          type: array
+          items:
+            $ref: "#/components/schemas/main.listProgram"
+        religions:
+          type: array
+          items:
+            type: string
+        sanction_pep_watchlist_execution_id:
+          type: string
+        sanction_pep_watchlist_result_id:
+          type: string
+        source_urls:
+          type: array
+          items:
+            type: string
+        subject_name:
+          type: string
+        subject_type:
+          type: string
+        topics:
+          type: array
+          items:
+            $ref: "#/components/schemas/main.listTopic"
+        vessel_callsigns:
+          type: array
+          items:
+            type: string
+        vessel_deadweight_tonnage:
+          type: string
+        vessel_flags:
+          type: array
+          items:
+            type: string
+        vessel_gross_registered_tonnage:
+          type: string
+        vessel_imo_numbers:
+          type: array
+          items:
+            type: string
+        vessel_mmsis:
+          type: array
+          items:
+            type: string
+        vessel_past_flags:
+          type: array
+          items:
+            type: string
+        vessel_types:
+          type: array
+          items:
+            type: string
+        websites:
+          type: array
+          items:
+            type: string
+    main.sanctionsPepsWatchlistsResultDisposition:
+      type: object
+      properties:
+        created_at:
+          type: string
+        created_by:
+          $ref: "#/components/schemas/main.createdBy"
+        justification:
+          type: string
+        organisation_id:
+          type: string
+        risk:
+          type: string
+        sanction_pep_watchlists_disposition_id:
+          type: string
+    main.subjectEntity:
+      type: object
+      properties:
+        aliases:
+          description: "`aliases` represent alternative names associated with the subject."
+          type: array
+          items:
+            type: string
+          example:
+            - Facebook
+            - Instagram
+        created_at:
+          description: "`created_at` represents the time when the subject entity was
+            created."
+          type: string
+          example: 2024-10-22T07:37:56.676763Z
+        created_by:
+          description: "`created_by` represents information about the user that created
+            the subject."
+          allOf:
+            - $ref: "#/components/schemas/main.createdBy"
+        date_of_birth:
+          description: "`date_of_birth` represents the date of birth of a subject."
+          type: string
+          example: 1980-04-07
+        date_of_incorporation:
+          description: "`date_of_incorporation` represents the date when the entity was
+            legally formed, formatted as a string."
+          type: string
+          example: 1980-04-07
+        industries:
+          description: "`industries` represents a list of industries associated with the
+            subject."
+          type: array
+          items:
+            type: string
+          example:
+            - Banking
+            - Insurance
+            - Telecommunications
+        internal_id:
+          description: "`internal_id` represents the internal identifier for a subject,
+            typically used for referencing within internal systems."
+          type: string
+          example: crm_id#123456789
+        name:
+          description: "`name` represents the name of the subject."
+          type: string
+          example: Jan Marsalek
+        nationalities:
+          description: "`nationalities` represents the list of nationalities associated
+            with the subject."
+          type: array
+          items:
+            type: string
+          example:
+            - US
+            - UK
+        places:
+          description: "`places` contains a list of places associated with the subject."
+          type: array
+          items:
+            $ref: "#/components/schemas/main.subjectPlace"
+        subject_id:
+          description: "`subject_id` represents the unique identifier for the subject."
+          type: string
+          example: d43a4ec2-3eb8-46ad-9ca9-09a26540968f
+        type:
+          description: "`type` represents the category of the subject, which could be an
+            individual (INDIVIDUAL) or an organisation (LEGAL_ENTITY)."
+          type: string
+          enum:
+            - INDIVIDUAL
+            - LEGAL_ENTITY
+    main.subjectMatch:
+      type: object
+      properties:
+        industry_match:
+          type: object
+          properties:
+            match_score:
+              type: integer
+              example: 8
+            match_type:
+              type: string
+              example: STRONG_MATCH
+            match_type_description:
+              type: string
+              example: Very similar
+            matches:
+              type: array
+              items:
+                type: object
+                properties:
+                  match_score:
+                    type: number
+                    example: 8
+                  match_type:
+                    type: string
+                    example: STRONG_MATCH
+                  match_type_description:
+                    type: string
+                    example: Very similar
+                  subject_industry:
+                    type: string
+                    example: Banking
+                  subject_industry_article:
+                    type: string
+                    example: Finance
+            subject_industries:
+              type: array
+              items:
+                type: string
+              example:
+                - Banking
+                - Insurance
+                - Telecommunications
+            subject_industries_article:
+              type: array
+              items:
+                type: string
+              example:
+                - Banking
+                - Finance
+                - Telecommunications
+        match_score:
+          type: number
+          example: 7
+        match_type:
+          type: string
+          example: MODERATE_MATCH
+        match_type_description:
+          type: string
+          example: Similar
+        nationality_matches:
+          type: object
+          properties:
+            match_score:
+              type: number
+              example: 7
+            match_type:
+              type: string
+              example: MODERATE_MATCH
+            match_type_description:
+              type: string
+              example: Similar
+            matches:
+              type: array
+              items:
+                type: object
+                properties:
+                  match_score:
+                    type: number
+                    example: 0
+                  match_type:
+                    type: string
+                    example: TOTAL_MISMATCH
+                  match_type_description:
+                    type: string
+                    example: Not similar at all
+                  subject_nationality:
+                    type: string
+                    example: US
+                  subject_nationality_article:
+                    type: string
+                    example: DE
+            subject_nationalities:
+              type: array
+              items:
+                type: string
+              example:
+                - US
+                - UK
+            subject_nationalities_article:
+              type: array
+              items:
+                type: string
+              example:
+                - US
+                - DE
+        place_matches:
+          type: object
+          properties:
+            match_score:
+              type: integer
+              example: 7
+            match_type:
+              type: string
+              example: MODERATE_MATCH
+            match_type_description:
+              type: string
+              example: Similar
+            matches:
+              type: array
+              items:
+                type: object
+                properties:
+                  distance:
+                    type: object
+                    properties:
+                      kilometers:
+                        type: number
+                        example: 1
+                      miles:
+                        type: number
+                        example: 0.621371
+                  match_score:
+                    type: number
+                    example: 7
+                  match_type:
+                    type: string
+                    example: MODERATE_MATCH
+                  match_type_description:
+                    type: string
+                    example: Similar
+                  matching_values:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                  subject_article_place_id:
+                    type: string
+                    example: 12fve345-1234-1234-1234-123456789012
+                  subject_place_id:
+                    type: string
+                    example: 12fve345-1234-1234-1234-123456789012
+            subject_places:
+              type: array
+              items:
+                type: object
+                properties:
+                  description:
+                    type: string
+                    example: Head Office
+                  geo_code_place:
+                    type: object
+                    properties:
+                      lat:
+                        type: number
+                        example: 40.7128
+                      lng:
+                        type: number
+                        example: -74.006
+                  place:
+                    type: string
+                    example: 123 Main Street, New York, USA
+                  place_id:
+                    type: string
+                    example: 12fve345-1234-1234-1234-123456789012
+            subject_places_article:
+              type: array
+              items:
+                type: object
+                properties:
+                  description:
+                    type: string
+                    example: Home
+                  place:
+                    type: string
+                    example: 112 Main Street, New York, USA
+                  place_id:
+                    type: string
+                    example: 12fve345-1234-1234-1234-123456789012
+        start_date_match:
+          type: object
+          properties:
+            match_score:
+              type: number
+              example: 10
+            match_type:
+              type: string
+              example: TOTAL_MATCH
+            match_type_description:
+              type: string
+              example: Exact match
+            subject_start_date:
+              type: string
+              example: 1980-04-07
+            subject_start_date_article:
+              type: string
+              example: 1980-04-07
+        type_match:
+          type: object
+          properties:
+            match_score:
+              type: number
+              example: 10
+            match_type:
+              type: string
+              example: TOTAL_MATCH
+            match_type_description:
+              type: string
+              example: Exact match
+            subject_type:
+              type: string
+              example: INDIVIDUAL
+            subject_type_article:
+              type: string
+              example: INDIVIDUAL
+    main.subjectPlace:
+      type: object
+      properties:
+        description:
+          description: "`description` provides a brief explanation or label for the place."
+          type: string
+          example: Head Office
+        place:
+          description: "`place` represents the specific location associated with the
+            subject, formatted as an address or location string."
+          type: string
+          example: 123 Main Street, New York, USA

@@ -584,6 +584,37 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/main.problemJson"
+  "/v1/sanctions-peps-watchlists-checks/{sanctions_peps_watchlists_check_id}/pdf":
+    get:
+      tags:
+        - Sanctions PEPs Watchlists
+      summary: Sanctions, PEPs, and Watchlists PDF
+      parameters:
+        - description: sanctions_peps_watchlists_check_id
+          name: sanctions_peps_watchlists_check_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - description: Basic Token
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: PDF file output
+          content:
+            application/pdf:
+              schema:
+                type: string
+        "400":
+          description: Bad Request
+          content:
+            application/pdf:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
   /v1/subjects/create-subject:
     post:
       description: with this POST request you can create a new subject

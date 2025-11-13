@@ -69,7 +69,7 @@
             "group": "Sanction, PeP, and Watchlist",
             "pages": [
               "api-reference/endpoint/sanctions-peps-watchlists-checks/get-aggregate",
-              
+
               "api-reference/endpoint/sanctions-peps-watchlists-checks/create-configuration",
               "api-reference/endpoint/sanctions-peps-watchlists-checks/new-check"
             ]
@@ -87,6 +87,15 @@
       ]
     }
   },
+  "integrations": {
+    "ga4": {
+      "measurementId": "G-K86TX0YMVE"
+    },
+    "fathom": {
+      "siteId": "MOYZEWGS"
+    }
+  },
+
   "logo": {
     "light": "/logo/taidalos-logo-light.png",
     "dark": "/logo/taidalos-logo-light.png"

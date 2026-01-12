@@ -12,7 +12,6 @@ paths:
     post:
       tags:
         - Media Search
-      summary: Override Media Search Article Risk Assessment
       parameters:
         - description: <Authorization Token>
           name: Authorization
@@ -44,7 +43,6 @@ paths:
     post:
       tags:
         - Media Search
-      summary: Override Media Search Summary
       parameters:
         - description: <Authorization Token>
           name: Authorization
@@ -76,7 +74,6 @@ paths:
     get:
       tags:
         - Media Search
-      summary: Media Search Aggregate
       parameters:
         - description: media_search_id
           name: media_search_id
@@ -112,7 +109,6 @@ paths:
     get:
       tags:
         - Media Search Configuration
-      summary: Media Search Config by Search ID
       parameters:
         - description: media_search_id
           name: media_search_id
@@ -143,7 +139,6 @@ paths:
     post:
       tags:
         - Media Search Configuration
-      summary: Create Media Search Configuration
       parameters:
         - description: <Authorization Token>
           name: Authorization
@@ -175,7 +170,6 @@ paths:
     get:
       tags:
         - Media Search Configuration
-      summary: Get Media Search Config
       parameters:
         - description: media_search_configuration_id
           name: media_search_configuration_id
@@ -206,7 +200,6 @@ paths:
     post:
       tags:
         - Media Search
-      summary: Create Media Search
       parameters:
         - description: <Authorization Token>
           name: Authorization
@@ -238,7 +231,6 @@ paths:
     post:
       tags:
         - Media Search
-      summary: Execute Media Search
       parameters:
         - description: <Authorization Token>
           name: Authorization
@@ -276,7 +268,6 @@ paths:
     get:
       tags:
         - Media Search
-      summary: Media Search Execution
       parameters:
         - description: media_search_execution_id
           name: media_search_execution_id
@@ -312,7 +303,6 @@ paths:
     get:
       tags:
         - Media Search
-      summary: Find Media Searches
       parameters:
         - description: Set the page size (max. 1,000)
           name: page_size
@@ -367,7 +357,6 @@ paths:
     get:
       tags:
         - Media Search
-      summary: Media Search Meta-Data
       parameters:
         - description: media_search_id
           name: media_search_id
@@ -397,7 +386,6 @@ paths:
     delete:
       tags:
         - Media Search
-      summary: Delete Media Search
       parameters:
         - description: media_search_id
           name: media_search_id
@@ -424,7 +412,6 @@ paths:
     get:
       tags:
         - Media Search
-      summary: Media Search PDF
       parameters:
         - description: media_search_id
           name: media_search_id
@@ -460,7 +447,6 @@ paths:
     get:
       tags:
         - Sanctions PEPs Watchlists
-      summary: Get Sanctions, PEPs, and Watchlists Aggregate
       parameters:
         - description: sanctions_peps_watchlists_check_id
           name: sanctions_peps_watchlists_check_id
@@ -491,7 +477,6 @@ paths:
     post:
       tags:
         - Sanctions PEPs Watchlists
-      summary: Create Sanctions, PEPs, and Watchlists Configuration
       parameters:
         - description: <Authorization Token>
           name: Authorization
@@ -525,7 +510,6 @@ paths:
     post:
       tags:
         - Sanctions PEPs Watchlists
-      summary: Create Sanctions, PEPs, and Watchlists Search
       parameters:
         - description: <Authorization Token>
           name: Authorization
@@ -557,7 +541,6 @@ paths:
     delete:
       tags:
         - Sanctions PEPs Watchlists
-      summary: Delete Sanctions, PEPs, and Watchlists Aggregate
       parameters:
         - description: sanctions_peps_watchlists_check_id
           name: sanctions_peps_watchlists_check_id
@@ -588,7 +571,6 @@ paths:
     get:
       tags:
         - Sanctions PEPs Watchlists
-      summary: Sanctions, PEPs, and Watchlists PDF
       parameters:
         - description: sanctions_peps_watchlists_check_id
           name: sanctions_peps_watchlists_check_id
@@ -617,10 +599,8 @@ paths:
                 $ref: "#/components/schemas/main.problemJson"
   /v1/subjects/create-subject:
     post:
-      description: with this POST request you can create a new subject
       tags:
         - Subjects
-      summary: Create Subject
       parameters:
         - description: <Authorization Token>
           name: Authorization
@@ -652,7 +632,6 @@ paths:
     get:
       tags:
         - Subjects
-      summary: Get Subject
       parameters:
         - description: subject_id
           name: subject_id
@@ -682,7 +661,6 @@ paths:
     delete:
       tags:
         - Subjects
-      summary: Delete Subject
       parameters:
         - description: subject_id
           name: subject_id
@@ -996,6 +974,9 @@ components:
             estItem"
     main.createSanctionsPepsWatchlistsConfigurationRequestItem:
       type: object
+      properties:
+        monitoring:
+          $ref: "#/components/schemas/main.monitoringInput"
     main.createSanctionsPepsWatchlistsConfigurationResponse:
       type: object
       properties:
@@ -1136,6 +1117,8 @@ components:
             encountered problem."
           type: string
           example: "{path}"
+        timestamp:
+          type: string
     main.deleteSubjectResponse:
       type: object
       properties:
@@ -1907,7 +1890,6 @@ components:
           type: string
           example: 123e4567-e89b-12d3-a456-426614174000
     main.problemJson:
-      description: Standardized error response format
       type: object
       properties:
         context:
@@ -1929,7 +1911,7 @@ components:
           description: "`title` provides a short, human-readable summary of the problem
             type or error encountered."
           type: string
-          example: Error Title
+          example: Error ShortName
         type:
           description: "`type` is a URI reference that identifies the problem type,
             allowing clients to recognize the type of error encountered."

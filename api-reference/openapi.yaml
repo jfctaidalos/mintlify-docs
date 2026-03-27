@@ -516,8 +516,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationRequ\
-                est"
+              $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationRequest"
         description: request body
         required: true
       responses:

@@ -1203,7 +1203,7 @@ components:
           type: string
         title:
           type: string
-        updatedAt:
+        updated_at:
           type: string
         url:
           type: string

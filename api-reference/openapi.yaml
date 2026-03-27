@@ -1193,7 +1193,7 @@ components:
     main.dataset:
       type: object
       properties:
-        lists:
+        categories:
           type: array
           items:
             type: string

@@ -516,7 +516,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationRequest"
+              $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationRequ\
+                est"
         description: request body
         required: true
       responses:
@@ -909,6 +910,13 @@ components:
             $ref: "#/components/schemas/main.sanctionPepWatchlistSearchExecution"
         sanctions_peps_watchlists_check_id:
           type: string
+    main.Tag:
+      type: object
+      properties:
+        category:
+          type: string
+        value:
+          type: string
     main.createMediaSearchConfigRequest:
       type: object
       properties:
@@ -1192,14 +1200,14 @@ components:
     main.dataset:
       type: object
       properties:
-        categories:
-          type: array
-          items:
-            type: string
         name:
           type: string
         summary:
           type: string
+        tags:
+          type: array
+          items:
+            $ref: "#/components/schemas/main.Tag"
         title:
           type: string
         updated_at:

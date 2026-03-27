@@ -516,7 +516,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationRequest"
+              $ref: "#/components/schemas/main.createSanctionsPepsWatchlistsConfigurationRequ\
+                est"
         description: request body
         required: true
       responses:
@@ -798,7 +799,8 @@ components:
       type: object
       properties:
         data:
-          $ref: "#/components/schemas/CreateSanctionsPepsWatchlistsConfigurationResponseItem"
+          $ref: "#/components/schemas/CreateSanctionsPepsWatchlistsConfigurationResponseI\
+            tem"
     CreateSanctionsPepsWatchlistsConfigurationResponseItem:
       type: object
       properties:
@@ -1047,7 +1049,8 @@ components:
       type: object
       properties:
         data:
-          $ref: "#/components/schemas/main.createSanctionsPepAndWatchlistSearchRequestItem"
+          $ref: "#/components/schemas/main.createSanctionsPepAndWatchlistSearchRequestIte\
+            m"
     main.createSanctionsPepAndWatchlistSearchRequestItem:
       type: object
       properties:
@@ -1059,7 +1062,8 @@ components:
       type: object
       properties:
         data:
-          $ref: "#/components/schemas/main.createSanctionsPepAndWatchlistSearchResponseItem"
+          $ref: "#/components/schemas/main.createSanctionsPepAndWatchlistSearchResponseIt\
+            em"
     main.createSanctionsPepAndWatchlistSearchResponseItem:
       type: object
       properties:
@@ -1071,7 +1075,8 @@ components:
       type: object
       properties:
         data:
-          $ref: "#/components/schemas/CreateSanctionsPepsWatchlistsConfigurationRequestItem"
+          $ref: "#/components/schemas/CreateSanctionsPepsWatchlistsConfigurationRequestIt\
+            em"
     main.createSearchConfigResponse:
       type: object
       properties:
@@ -1151,7 +1156,7 @@ components:
                 type: string
               example:
                 - US
-                - UK
+                - GB
             places:
               description: "`places` is a list of places associated with the subject, each
                 defined by a description and a place identifier."
@@ -2245,7 +2250,7 @@ components:
             type: string
           example:
             - US
-            - UK
+            - GB
         places:
           description: "`places` contains a list of places associated with the subject."
           type: array
@@ -2361,7 +2366,7 @@ components:
                 type: string
               example:
                 - US
-                - UK
+                - GB
             subject_nationalities_article:
               type: array
               items:

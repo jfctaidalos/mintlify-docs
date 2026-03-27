@@ -72,7 +72,9 @@
               "api-reference/endpoint/sanctions-peps-watchlists-checks/get-aggregate",
               "api-reference/endpoint/sanctions-peps-watchlists-checks/get-pdf",
               "api-reference/endpoint/sanctions-peps-watchlists-checks/create-configuration",
-              "api-reference/endpoint/sanctions-peps-watchlists-checks/new-check"
+              "api-reference/endpoint/sanctions-peps-watchlists-checks/new-check",
+              "api-reference/endpoint/sanctions-peps-watchlists-checks/get-latest-sources",
+              "api-reference/endpoint/sanctions-peps-watchlists-checks/get-sources-for-execution"
             ]
           }
         ]

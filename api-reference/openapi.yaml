@@ -564,6 +564,62 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/main.problemJson"
+  /v1/sanctions-peps-watchlists-checks/sources/latest:
+    get:
+      tags:
+        - Sanctions PEPs Watchlists
+      summary: Get Latest Sanctions, PEPs, and Watchlists Sources
+      parameters:
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.listScreeningSourcesResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
+  "/v1/sanctions-peps-watchlists-checks/sources/{sanction_pep_watchlist_execution_id}":
+    get:
+      tags:
+        - Sanctions PEPs Watchlists
+      summary: Get Sanctions, PEPs, and Watchlists Sources for an Execution
+      parameters:
+        - description: sanction_pep_watchlist_execution_id
+          name: sanction_pep_watchlist_execution_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - description: <Authorization Token>
+          name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.listScreeningSourcesResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/main.problemJson"
   "/v1/sanctions-peps-watchlists-checks/{sanctions_peps_watchlists_check_id}":
     delete:
       tags:
@@ -1129,6 +1185,23 @@ components:
           description: "`user_id` represents the unique identifier for the user."
           type: string
           example: d43a4ec2-3eb8-46ad-9ca9-09a26540968f
+    main.dataset:
+      type: object
+      properties:
+        lists:
+          type: array
+          items:
+            type: string
+        name:
+          type: string
+        summary:
+          type: string
+        title:
+          type: string
+        updatedAt:
+          type: string
+        url:
+          type: string
     main.defaultProblemContext:
       type: object
       required:
@@ -1447,6 +1520,18 @@ components:
           type: string
         url:
           type: string
+    main.listScreeningSourcesResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            datasets:
+              type: array
+              items:
+                $ref: "#/components/schemas/main.dataset"
+            sources_id:
+              type: string
     main.listTopic:
       type: object
       properties:
@@ -1953,6 +2038,9 @@ components:
           items:
             $ref: "#/components/schemas/main.sanctionsPepsWatchlistsResultAggregate"
         sanction_pep_watchlist_search_execution_id:
+          type: string
+        source_reference:
+          description: Source reference
           type: string
     main.sanctionsPepsWatchlistsAggregate:
       type: object

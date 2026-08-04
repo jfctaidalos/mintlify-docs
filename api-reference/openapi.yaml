@@ -469,6 +469,149 @@ paths:
             application/pdf:
               schema:
                 $ref: "#/components/schemas/main.problemJson"
+  /v1/radar/policies/import-bookstack:
+    post:
+      tags:
+        - radar-policies
+      summary: Import a policy from BookStack
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/main.importBookStackRequest"
+        description: BookStack page reference
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: "#/components/schemas/main.policyResponseItem"
+  /v1/radar/policies/upload:
+    post:
+      description: Creates a policy from an uploaded document. Markdown is stored
+        as-is; every other format is converted to canonical markdown (PDF,
+        slides and images via OCR, which completes asynchronously — those
+        policies start in status PROCESSING).
+      tags:
+        - radar-policies
+      summary: Upload a policy document
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  description: Policy title
+                  type: string
+                file:
+                  description: "Document: .md, .pdf, .docx, .odt, .rtf, .html, .htm, .txt, .csv,
+                    .eml, .pptx, .png, .jpg, .jpeg"
+                  type: string
+                  format: binary
+              required:
+                - title
+                - file
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: "#/components/schemas/main.policyResponseItem"
+  "/v1/radar/policies/{policy_id}":
+    put:
+      tags:
+        - radar-policies
+      summary: Update a policy's markdown body
+      parameters:
+        - description: Policy ID
+          name: policy_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/main.updatePolicyRequest"
+        description: New markdown body
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: "#/components/schemas/main.policyResponseItem"
+    delete:
+      tags:
+        - radar-policies
+      summary: Delete a policy
+      parameters:
+        - description: Policy ID
+          name: policy_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: No Content
+  "/v1/radar/policies/{policy_id}/original":
+    get:
+      description: Streams the raw original uploaded file (PDF or markdown) for the policy.
+      tags:
+        - radar-policies
+      summary: Download a policy's original file
+      parameters:
+        - description: Policy ID
+          name: policy_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+  "/v1/radar/policies/{policy_id}/sync":
+    post:
+      description: Pulls the latest BookStack revision. If both local and remote
+        changed, the policy is flagged NEEDS_REVIEW.
+      tags:
+        - radar-policies
+      summary: Re-sync a BookStack policy
+      parameters:
+        - description: Policy ID
+          name: policy_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: "#/components/schemas/main.policyResponseItem"
   "/v1/sanctions-peps-watchlists-checks/aggregate/{sanctions_peps_watchlists_check_id}":
     get:
       tags:
@@ -1505,6 +1648,14 @@ components:
           description: "`data` holds the detailed information of a subject."
           allOf:
             - $ref: "#/components/schemas/main.subjectEntity"
+    main.importBookStackRequest:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            bookstack_page_id:
+              type: string
     main.listProgram:
       type: object
       properties:
@@ -2014,6 +2165,31 @@ components:
             summary entry in the response structure."
           type: string
           example: 123e4567-e89b-12d3-a456-426614174000
+    main.policyResponseItem:
+      type: object
+      properties:
+        body_markdown:
+          type: string
+        bookstack_page_id:
+          type: string
+        bookstack_revision:
+          type: string
+        created_at:
+          type: string
+        has_original_file:
+          type: boolean
+        policy_id:
+          type: string
+        source:
+          type: string
+        status:
+          type: string
+        title:
+          type: string
+        updated_at:
+          type: string
+        version:
+          type: integer
     main.problemJson:
       type: object
       properties:
@@ -2085,6 +2261,7 @@ components:
         date_of_birth:
           type: string
         date_of_death:
+          description: The date the person died. Not a listing or sanction expiry date.
           type: string
         date_of_incorporation:
           type: string
@@ -2102,6 +2279,8 @@ components:
           items:
             type: string
         end_date:
+          description: The date the entity ceased to exist (dissolution or closure). Not a
+            listing or sanction expiry date.
           type: string
         gender:
           type: string
@@ -2140,6 +2319,8 @@ components:
         sanction_pep_watchlist_execution_id:
           type: string
         sanction_pep_watchlist_result_id:
+          description: Unique identifier of this individual result (hit). Distinct for
+            every result in a check.
           type: string
         source_urls:
           type: array
@@ -2514,3 +2695,11 @@ components:
             subject, formatted as an address or location string."
           type: string
           example: 123 Main Street, New York, USA
+    main.updatePolicyRequest:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            body_markdown:
+              type: string

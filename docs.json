@@ -36,7 +36,7 @@
             "pages": [
               "api-reference/endpoint/subjects/get-subject",
               "api-reference/endpoint/subjects/create-subject",
-              "api-reference/endpoint/subjects/delete-subject"              
+              "api-reference/endpoint/subjects/delete-subject"
             ]
           },
           {
@@ -47,13 +47,10 @@
               "api-reference/endpoint/media-searches/get-media-search-pdf",
               "api-reference/endpoint/media-searches/get-media-search-aggregate",
               "api-reference/endpoint/media-searches/get-media-search-execution",
-
               "api-reference/endpoint/media-searches/create-media-search",
               "api-reference/endpoint/media-searches/execute-media-search",
-
               "api-reference/endpoint/media-searches/override-summary",
               "api-reference/endpoint/media-searches/override-article-disposition",
-
               "api-reference/endpoint/media-searches/delete-media-search"
             ]
           },
@@ -74,7 +71,8 @@
               "api-reference/endpoint/sanctions-peps-watchlists-checks/create-configuration",
               "api-reference/endpoint/sanctions-peps-watchlists-checks/new-check",
               "api-reference/endpoint/sanctions-peps-watchlists-checks/get-latest-sources",
-              "api-reference/endpoint/sanctions-peps-watchlists-checks/get-sources-for-execution"
+              "api-reference/endpoint/sanctions-peps-watchlists-checks/get-sources-for-execution",
+              "api-reference/endpoint/sanctions-peps-watchlists-checks/delete-check"
             ]
           }
         ]
@@ -98,7 +96,6 @@
       "siteId": "MOYZEWGS"
     }
   },
-
   "logo": {
     "light": "/logo/taidalos-logo-light.png",
     "dark": "/logo/taidalos-logo-light.png"
@@ -118,15 +115,15 @@
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {
@@ -138,7 +135,13 @@
       "display": "interactive"
     },
     "examples": {
-      "languages": [ "curl",  "python", "javascript", "java", "go" ]
+      "languages": [
+        "curl",
+        "python",
+        "javascript",
+        "java",
+        "go"
+      ]
     }
   }
 }
